@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+	background-image: linear-gradient(238deg, #97b6ff, #7482ff 25%, 
+	#775dff 49%, #c165ce 80%, #c165ce 80%, #f06aaf);
+	background-repeat: no-repeat;
+    height: 100%;
+    background-attachment: fixed;
+    padding-top: 4%;
+    font-family: 'ProximaNovaRegular';
+}
+@font-face {
+    font-family: 'ProximaNovaRegular';
+    src: url(./assets/fonts/ProximaNovaRegular.woff);
+}
+
+@font-face {
+    font-family: 'Lato-Regular';
+    src: url(/assets/fonts/lato-regular.eot);
+    src: url(/assets/fonts/lato-regular.eot?iefix) format('eot'),
+         url(/assets/fonts/lato-regular.woff) format('woff'),
+         url(/assets/fonts/lato-regular.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

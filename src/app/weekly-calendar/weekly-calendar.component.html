@@ -1,0 +1,53 @@
+<div class="button-wrapper" id="weekly_data_full">
+    <button type="button"  class="btn btn-outline-secondary btn-monthly-data" (click)="this.showCalender = !this.showCalender">
+        View weekly / Monthly Data
+    </button>
+    <div id="popContent" [hidden]="showCalender">
+        <div class="popover-header pop-header-content">
+            <div class="arrow-sec" id="nextyeararrow" (click)="arrowFunction('prev');">
+                <fa name="angle-left"></fa>
+            </div>
+            <div class="calendar_year_text">{{currentYear}}</div>
+            <div class="arrow-sec" id="prevyeararrow" (click)="arrowFunction('next');">
+                <fa name="angle-right"></fa>
+            </div>
+        </div>
+        <div class="monthMainDiv calendar_month_wrapper">
+            <div class="arrow-sec" id="leftmonthscroll" (click)="monthArrowFn('prev')">
+                <fa name="angle-left"></fa>
+            </div>
+            <div id="monthset-1" [hidden]="!firstsec" [ngClass]="{'monthsetactive':firstsec}" class="monthcontainer">
+                <div name="1" class="monthDiv" (click)="onMonthSelect($event)">Jan</div>
+                <div name="2" class="monthDiv" (click)="onMonthSelect($event)">Feb</div>
+                <div name="3" class="monthDiv" (click)="onMonthSelect($event)">Mar</div>
+                <div name="4" class="monthDiv" (click)="onMonthSelect($event)">Apr</div>
+                <div name="5" class="monthDiv" (click)="onMonthSelect($event)">May</div>
+            </div>
+            <div id="monthset-2" [hidden]="!secondsec" [ngClass]="{'monthsetactive':secondsec}" class="monthcontainer">
+                <div name="6" class="monthDiv" (click)="onMonthSelect($event)">Jun</div>
+                <div name="7" class="monthDiv" (click)="onMonthSelect($event)">Jul</div>
+                <div name="8" class="monthDiv" (click)="onMonthSelect($event)">Aug</div>
+                <div name="9" class="monthDiv" (click)="onMonthSelect($event)">Sep</div>
+                <div name="10" class="monthDiv" (click)="onMonthSelect($event)">Oct</div>
+            </div>
+            <div id="monthset-3" [hidden]="!thirdsec" [ngClass]="{'monthsetactive':thirdsec}" class="monthcontainer">
+                <div name="11" class="monthDiv" (click)="onMonthSelect($event)">Nov</div>
+                <div name="12" class="monthDiv" (click)="onMonthSelect($event)">Dec</div>
+            </div>
+            <div class="arrow-sec"  (click)="monthArrowFn('next')">
+                <fa name="angle-right"></fa>
+            </div>
+        </div>
+        <div class="monthMainDiv calendar_week">
+            <div *ngFor="let data of fromtodate">
+                <div class="weekBox" (click)="onWeekSelectFn($event, data.prevnextdatearray)" [ngClass]="data.disabledbox"><span>Week {{data.weeknumber}} </span><label>{{data.prevdaydate}} to {{data.nextdaydate}}</label></div>
+            </div>
+        </div>
+        <div class="button-sec">
+
+            <button class="cancelBtn" (click)="cancelPopup()" data-dismiss="modal">CANCEL</button>
+            <button class="submitBtn" (click)="submitAction()" data-dismiss="modal">DONE</button>
+
+        </div>
+    </div>
+</div>

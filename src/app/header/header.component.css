@@ -1,0 +1,82 @@
+.logo-sec {
+    float:left;
+}
+.photonlogo {
+    float: left;
+	width: 100%;
+    height: 36px;
+}
+
+/* hr tag */
+.horizontal-line { 
+    display: block;
+    margin: 0 2%;
+    border-style: inset;
+    border-width: 1px;
+	border: solid 1px rgba(255, 255, 255, 0.06);
+} 
+.view-reportees {
+    background-image: linear-gradient(74deg, #f566ab, #97b6ff);
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: block;
+    z-index: 2;
+    text-decoration: none;
+    padding: 2px;
+    margin-top: 3%; 
+    color: #ffffff;
+    float: left;
+    width: auto;
+    height: 32px;
+    font-size: 12px;
+    border: none;
+    font-family: proximanovaregular;
+    font-weight: 400;
+}
+  
+.view-reportees span  {
+	align-items: center;
+	background-color: #525d95;
+	border-radius: 3px;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	transition: background .5s ease;
+	padding: 5px 10px;
+}
+.view-reportees span:hover {
+	background-image: linear-gradient(74deg, #f566ab, #97b6ff);
+	color: #ffffff;
+}
+/*laptop and mobile view*/
+@media screen and (max-width: 1024px) and (min-width: 320px) {
+     .photonlogo {
+         height: 28px;
+     }
+    .photon-logo-head {
+        width:50%;
+    }
+    .helpIcon {
+        display: none;
+       
+    }
+    .ptn-logo {
+        width:50%;
+    }
+    .nav-mob {
+        display: block;
+    }
+    .horizontal-line { 
+       /* margin: 0 1%;*/
+    }
+    .btn-sec {
+        flex-basis: 50%;
+    }
+    .view-reportees {
+        height: 27px;
+        font-size: 9px;
+    }
+    .header-sec {
+        padding: 0.5rem 0rem;
+    }
+}

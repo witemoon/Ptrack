@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark  navbar-expand-md header-sec">
+  <div class="col-sm-4 ptn-logo">
+   <a class="navbar-brand logo-sec" href="#"  routerLink=""><img src="assets\img\photon-logo.png" class="photonlogo responsive"  width="36" height="14" alt="photon-logo"></a>
+  </div>
+  <div class="col-sm-8 navbar-collapse btn-sec">
+    <ul class="navbar-nav ml-auto nav-mob">
+      <li class="nav-item" *ngIf="reporteeCount">
+        <a class="nav-link" routerLink="/manager"><button class="view-reportees"> <span>View Reportees </span></button></a>
+      </li>
+      <!--<li class="nav-item">
+        <a class="nav-link" href="#"><img src="assets\img\Help.png" class="helpIcon" alt="photon-logo"></a>
+      </li> -->   
+    </ul>
+  </div>  
+</nav>
+<hr class="horizontal-line"/>

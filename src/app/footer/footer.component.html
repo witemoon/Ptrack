@@ -1,0 +1,20 @@
+<div class="bot-but" *ngIf=false>
+  <label for="download-report" class="control-label custom-label">Download Report Format</label>
+  <div class="dropup drop-marg">
+    <button class="btn btn-default btn-sm btn-sm-ht dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      Format
+      <span class="glyphicon glyphicon-menu-up"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <li><a href="#">Action</a></li>
+      <li><a href="#">Another action</a></li>
+      <li><a href="#">Something else here</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="#">Separated link</a></li>
+      <li><a href="#">PDF</a></li>
+      <li><a href="#">CSV</a></li>
+    </ul>
+  </div>
+  <button type="button" class="btn btn-default pt-btn-pink" (click)="downloadReport()">Generate</button>
+</div>

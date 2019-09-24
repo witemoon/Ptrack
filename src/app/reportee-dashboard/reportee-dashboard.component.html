@@ -1,0 +1,120 @@
+<div class="row report">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-8 reportee-dashboard">
+    <app-datepicker></app-datepicker> 
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-4 monthly-view">
+     
+    <div class="view-btn-block">
+        <button type="button" (click)="getReporteeAccess()"class="btn btn-lg btn-2">View</button>
+    </div>
+    <div class="view-weekly-block button-wrapper">
+     <app-weekly-calendar></app-weekly-calendar>
+   </div>
+  </div>
+</div>
+<hr class="hr2"/>
+<div class="searchFilterArea">
+    <input type="text" name="solutionccenter" id="solutioncenId" (keyup)="searchSolutionCenter('Solution',searchSolutionval)"
+     [(ngModel)]='searchSolutionval'>
+    <span id="filterPlus1" type="button" class="glyphicon glyphicon-plus" (click)="addFilteredData('Solution')"></span>
+    <section>
+      <div *ngIf="solutionFlag">
+        <div  id="solutionCenterContainer" class="filterContainerArea">
+          <ul>
+            <li (click)="selectSolutionCenter(searchempdata)" id="hidingSC" *ngFor="let searchempdata of solutionSearchData">{{searchempdata}}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+<div class= "row content-sec">   
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 reportees-sec">                
+    <div class="top-sec">
+      <ng-multiselect-dropdown
+        [placeholder]="'Employees not selected'"
+        [data]="dropdownList"
+        [(ngModel)]="selectedItems"
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+        (onDeSelect)="OnItemDeSelect($event)"  
+      ></ng-multiselect-dropdown>
+    </div> 
+   
+    <div class="submit-sec">
+      <ul>
+        <li style="list-style-type: none;"><button type="button" (click)="clearDropDown()" class="btn btn-lg btn-3"> <span>Clear</span></button>
+          <button type="button" (click)="exportAsXLSX()" class="btn btn-lg btn-3"> <span>Download</span></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8  accordian-sec">
+    <div class="scroll-area" id="access-table-scroll" >
+      <div *ngFor="let reporteeData of reporteesData" >
+        <ngb-accordion   *ngFor="let data of reporteeData" [closeOthers]="true">
+          <ngb-panel title=""  class="accordian-panel">
+            <ng-template ngbPanelTitle>
+            <span class="employee-name"*ngFor="let employeeNameData of data.employeeProductiveAccess">{{employeeNameData.employeeName}}</span>
+            <span class="total-avg"  *ngFor="let dataa of data.employeeProductiveAccess">total {{dataa.totalProductiveHours}} | avg {{dataa.productiveAverageHours}}</span>
+          </ng-template>
+          <ng-template ngbPanelContent>
+           
+            <table class="table-custom">
+              <thead>  
+                <tr>
+                  <th>Date</th>
+                  <th>Swipe In</th>
+                  <th>Swipe Out</th>
+                  <th>Total Hours</th>
+                  <th>Time in work Area</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let employeeData of data.employeeAccess">
+                  <td>{{employeeData.accessDate}}</td>
+                  <td>{{employeeData.swipeInTime}}</td>
+                  <td>{{employeeData.swipeOutTime}}</td>
+                  <td>{{employeeData.totalHours}}</td>
+                  <td><div class="access-bar" [ngClass]="(employeeData.leaveType =='' || employeeData.leaveType ==NULL)?(employeeData.productiveMinutes<360?'access-red':'access-green'):'access-blue'" (click)="getSwipeData(content,employeeData.accessDate,employeeData.employeeCode, employeeData.productiveHours)" [innerHtml]="(employeeData.leaveType =='' || employeeData.leaveType ==NULL)?(employeeData.productiveHours == '00:00'?'-':employeeData.productiveHours):employeeData.leaveType"></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </div>
+</div> 
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">TIME DETAILS</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="modal-body-scroll">
+        <table class="swipe-details">
+            <thead>
+              <tr>
+                <th>DATE</th>
+                <th>TIME</th>
+                <th>GATE</th>
+                <th>ENTRY/EXIT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor = 'let data of swipeResponse' [ngClass]="checkTailGate(data.inOutFlag)">
+                <td>{{data.punchDate}}</td>
+                <td>{{data.punchTime}}</td>
+                <td>{{data.gateDescription}}</td>
+                <td *ngIf="data.inOutFlag == 0">Entry To Work Area</td>
+                <td *ngIf="data.inOutFlag == 1">Exit From Work Area</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    </div>
+  </ng-template>  

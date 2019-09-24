@@ -1,0 +1,33 @@
+<form class="form-inline dp-form">
+  <div class="row reportee-page-adjustment">
+    <div class="col-sm-6  col-xs-12 dt-pick">
+      <div class="form-group form-view">
+    <label for="fromdate"  class="control-label custom-label">From Date</label>
+  
+        <div class="input-group-append">
+    <input class="form-control form-adjust disabled" placeholder="{{firstday | date: 'dd-MM-yyyy'}}"
+  
+               name="fromDatePicker" [(ngModel)]="fromDate" ngbDatepicker #dFrom="ngbDatepicker" [displayMonths]="displayMonths" [navigation]="navigation"  [showWeekNumbers]="showWeekNumber" [maxDate]="maxDate" (dateSelect)="fromDateSelection(dFrom)">
+        
+          <button class="btn btn-outline-secondary" (click)="dFrom.toggle(); $event.stopPropagation();"   type="button">
+              <fa name="calendar" ></fa>
+          </button>
+        </div>
+      </div>
+    </div>
+  <div class="col-sm-6 col-xs-12 dt-pick">
+      <div class="form-group form-view">
+         <label for="todate"  class="control-label custom-label">To Date</label>
+          <div class="input-group-append">
+      <input class="form-control form-adjust disabled" placeholder="{{currentdate | date: 'dd-MM-yyyy'}}"
+                 name="toDatePicker" [(ngModel)]="toDate" ngbDatepicker #dTo="ngbDatepicker" [minDate]="fromDate" [maxDate]="maxDate" [displayMonths]="displayMonths" [navigation]="navigation"  [showWeekNumbers]="showWeekNumber" (dateSelect)="toDateSelection(dTo)">
+          
+            <button class="btn btn-outline-secondary" (click)="dTo.toggle(); $event.stopPropagation();"  type="button">
+                <fa name="calendar" ></fa>
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+    </form>
+ 

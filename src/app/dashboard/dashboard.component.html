@@ -1,0 +1,122 @@
+<div class="row content-sec dashboard">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+    <div class="employee-details">
+      <div class="hours-indicator d-none d-lg-block current-time">
+        <app-progress [value]="(todayProductiveHour == ''?'--:--':todayProductiveHour)"></app-progress>
+      </div>
+      <div class="employee-information ">
+        <p class="current-date">{{todaydate | date: 'dd/MM/yyyy' }}</p>
+        <!-- for displaying time in angular ends-->
+        <p class="emp-name">{{employeeName}}</p>
+        <p> <span>Employee ID:  </span>   {{employeeCode}}</p>
+        <p> <span>Reporting Manager:  </span>    {{reportingManagerName}}</p>
+        <p> <span>Department:  </span>    {{solutionCenter}}</p>
+        <p> <span>Shift Time:  </span>   {{shift}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 report">
+    <div class="row dp-details">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <app-datepicker></app-datepicker>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 monthly-view">
+        <app-weekly-calendar></app-weekly-calendar>
+      </div>
+    </div>
+    <hr class="horizontal-line d-block d-sm-none" />
+    <div class="table-sec d-none d-sm-block">
+      <div class="scroll-area" id="access-table-scroll" >
+        <table class="access-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Swipe In</th>
+              <th>Swipe Out</th>
+              <th>Total Hours</th>
+              <th>Time In Work Area</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="employeeCountry == 'India' || employeeCountry == 'Indonesia'">
+            <tr *ngFor='let data of accessValues'>
+              <td>{{data.accessDate}}</td>
+              <td>{{data.swipeInTime}}</td>
+              <td>{{data.swipeOutTime}}</td>
+              <td>{{data.totalHours}}</td>
+              <td>
+                  <div class="access-bar" [ngClass]="(data.leaveType =='' || data.leaveType ==NULL)?(data.productiveMinutes<360?'access-red':'access-green'):'access-blue'" (click)="getSwipeData(content,data.accessDate)"
+                  [innerHtml]="(data.leaveType =='' || data.leaveType ==NULL)?(data.productiveHours == '00:00'?'-':data.productiveHours):data.leaveType"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="not-applicable" *ngIf="(employeeCountry != 'India' && employeeCountry != 'Indonesia')">N/A</div>
+      </div>
+      <div class="total-avg" *ngFor='let data of accessproductiveValues'>TOTAL  <span>  {{data.totalProductiveHours}}</span> <span class="seperator">|</span> AVG  <span  [ngClass]="(cutOffDate>currentDate?(data.avgProductiveMinutes<540?'avgaccess-red':'avgaccess-green'):(data.avgProductiveMinutes<480?'avgaccess-red':'avgaccess-green'))">{{data.productiveAverageHours}}</span> </div>  
+      
+    </div>
+    <div class="d-block d-sm-none" *ngFor='let data of accessValues'>
+      <div>
+        <div class="date-info">
+          <ul>
+            <li style="float:left;width:50%;"><label for="date" class="mobile-customisation">Date:</label><span class="table-details">{{data.accessDate}}</span></li>
+            <li style="float:right;width:50%;padding-left: 40px;"><label for="WorkArea" class="mobile-customisation">Work
+                Area: </label><span style="cursor: pointer;" [ngClass]="data.productiveMinutes<360?'access-red':'access-green'"
+                (click)="getSwipeData(content,data.accessDate)" [innerHtml]="(data.leaveType =='' || data.leaveType ==NULL)?(data.productiveHours == '00:00'?'-':data.productiveHours):data.leaveType"
+                class="table-details">{{data.productiveHours}}</span></li>
+          </ul>
+        </div>
+        <table class="access-table">
+          <thead>
+            <tr>
+              <th>Swipe In</th>
+              <th>Swipe Out</th>
+              <th>Total Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{data.swipeInTime}}</td>
+              <td>{{data.swipeOutTime}}</td>
+              <td>{{data.totalHours}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="horizontal-line d-lg-none d-xl-block" />
+      </div>
+     
+    </div> <p class="d-block d-sm-none total-avg" *ngFor='let data of accessproductiveValues'>Total {{data.totalProductiveHours}}
+      | Avg {{data.productiveAverageHours}} </p>
+  </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">TIME DETAILS</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="modal-body-scroll" >
+        <table class="swipe-details">
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>TIME</th>
+              <th>GATE</th>
+              <th>ENTRY/EXIT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let data of swipeResponse;'>
+              <td>{{data.punchDate}}</td>
+              <td>{{data.punchTime}}</td>
+              <td>{{data.gateDescription}}</td>
+              <td *ngIf="data.inOutFlag == 0" [ngClass]="checkTailGate(data.inOutFlag)">Entry To Work Area</td>
+              <td *ngIf="data.inOutFlag == 1" [ngClass]="checkTailGate(data.inOutFlag)">Exit From Work Area</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>  
+  </ng-template>

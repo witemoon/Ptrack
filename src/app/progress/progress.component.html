@@ -1,0 +1,14 @@
+<div class="progress">
+		<svg class="progress__svg" width="160" height="160" viewBox="0 0 120 120">
+			<circle class="progress__meter" cx="60" cy="60" [attr.r]="radius" stroke-width="8" />
+			<circle class="progress__value" [style.strokeDasharray]="circumference" [style.strokeDashoffset]="dashoffset" cx="60" cy="60"
+			 [attr.r]="radius" stroke-width="8" />
+		</svg>
+		<div class="progress__value-text">
+			<ul>
+				<li class="value" [innerHtml]="value"></li>
+				<li class="total-hours" *ngIf="value">TOTAL HOURS</li>
+			</ul>
+		</div>
+</div>
+	
